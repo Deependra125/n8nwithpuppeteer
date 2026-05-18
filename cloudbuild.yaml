@@ -8,7 +8,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/n8n-puppeteer-bridge:$COMMIT_SHA']
 
-  # Step 3: 🔥 FIXED: Replaced corrupted URL string with the clean official gcloud builder
+  # Step 3: Deploy to Cloud Run using the official gcloud step builder
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
@@ -22,3 +22,7 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/n8n-puppeteer-bridge:$COMMIT_SHA'
+
+# 🔥 FIX: Explicitly direct logs to Cloud Logging to allow the Service Account to run
+options:
+  logging: CLOUD_LOGGING_ONLY
