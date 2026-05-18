@@ -2,4 +2,4 @@ output.json
 docker-compose.yml
 .mcp.json
 .DS_Store
-.env.env
+.env
