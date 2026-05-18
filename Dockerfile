@@ -19,13 +19,16 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 WORKDIR /usr/src/app
 
-# 🔥 NEW: Install pnpm globally inside the container environment
+# Install pnpm globally inside the container environment
 RUN npm install -g pnpm
 
-# 🔥 NEW: Copy package manifests AND the new pnpm-lock file
+# Copy package manifests AND the new pnpm-lock file
 COPY package*.json pnpm-lock.yaml ./
 
-# 🔥 NEW: Use pnpm to install production dependencies cleanly
+# 🔥 FIX: Explicitly approve Puppeteer's build scripts before installing dependencies
+RUN pnpm config set allowed-build-dependencies puppeteer
+
+# Use pnpm to install production dependencies cleanly
 RUN pnpm install --prod --frozen-lockfile
 
 # Bring in your working modular file components (index.js, browserAction.js, etc.)
