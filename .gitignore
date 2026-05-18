@@ -3,3 +3,4 @@ docker-compose.yml
 .mcp.json
 .DS_Store
 .env
+node_modules
